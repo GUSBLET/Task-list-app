@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Style for work zone group-->
+    <Style x:Key="WorkZoneBackground" TargetType="{x:Type Canvas}">
+        <Setter Property="Background" Value="#4d4d4d"/><!--Color "#4d4d4d" -->
+    </Style>
+
+    <Style x:Key="MarginDockPanel" TargetType="{x:Type DockPanel}">
+        <Setter Property="Margin" Value="0,20,0,10"/>
+    </Style>
+
+
+    <Style x:Key="ButtonCreate" TargetType="{x:Type Button}">
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="10,0,10,10"/>
+        <Setter Property="Background" Value="#404040"/><!--Color #404040 -->
+        <Setter Property="Foreground" Value="#f2f2f2"/><!--Color "#f2f2f2"-->
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+
+    <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="#595959"/><!--Color "#595959"-->
+        <Setter Property="Foreground" Value="#f2f2f2"/><!--Color "#f2f2f2"-->
+    </Style>
+
+
+    <Style x:Key="LableText" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Margin" Value="10,10,0,0"/>
+        <Setter Property="Foreground" Value="#f2f2f2"/><!--Color "#f2f2f2"-->
+    </Style>
+
+
+</ResourceDictionary>

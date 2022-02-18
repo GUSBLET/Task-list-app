@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Task_list_app"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/HeaderCreateWindows.xaml"/>
+                <ResourceDictionary Source="Style/WorkZoneCreateWindows.xaml"/>
+                <ResourceDictionary Source="Style/WorkZoneHistoryList.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

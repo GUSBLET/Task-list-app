@@ -10,29 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
-using Microsoft.Win32;
-
 
 namespace Task_list_app
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ListWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ListWindow : Window
     {
-        public MainWindow()
+        public ListWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true) ;
-            
         }
     }
 }
