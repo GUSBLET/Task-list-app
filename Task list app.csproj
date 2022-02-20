@@ -93,11 +93,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Style\WorkZoneCreateWindows.xaml">
+    <Page Include="Style\ListMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Style\WorkZoneHistoryList.xaml">
+    <Page Include="Style\WorkZoneCreateWindows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

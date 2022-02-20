@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_list_app"
         mc:Ignorable="d"
-        Title="ListWindow" Height="450" Width="800">
+        Title="" Height="450" Width="800">
     <Grid>
+
+        <!--List zone-->
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <!--Menu-->
+        
+        <Menu Style="{StaticResource MenuOption}" Grid.Row="0">
+            <MenuItem Header="File" Style="{StaticResource MenuItemHeaderOption}">
+                <MenuItem Header="New List" Style="{StaticResource MenuItemParagraphOption}"/>
+                <MenuItem Header="Save file" Style="{StaticResource MenuItemParagraphOption}"/>
+                <MenuItem Header="Save file as" Style="{StaticResource MenuItemParagraphOption}"/>
+            </MenuItem>
+            <MenuItem Header="Setting" Style="{StaticResource MenuItemHeaderOption}">
+                <MenuItem Header="Description" Style="{StaticResource MenuItemParagraphOption}"/>
+            </MenuItem>
+        </Menu>
+
+        <DataGrid x:Name="dgTodoList" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CreationDate" Width="180" />
+                <DataGridCheckBoxColumn Header="Done" Width="60"/>
+                <DataGridTextColumn Header="Сompletion date" Width="180"/>
+                <DataGridTextColumn Header="Todo" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
         
     </Grid>
 </Window>

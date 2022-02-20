@@ -34,5 +34,15 @@ namespace Task_list_app
             if (openFileDialog.ShowDialog() == true) ;
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ListWindow listWindow = new ListWindow();
+            listWindow.Show();
+            Close();
+        }
+
+        
+       
     }
 }

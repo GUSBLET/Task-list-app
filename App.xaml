@@ -8,8 +8,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style/HeaderCreateWindows.xaml"/>
                 <ResourceDictionary Source="Style/WorkZoneCreateWindows.xaml"/>
-                <ResourceDictionary Source="Style/WorkZoneHistoryList.xaml"/>
+                <ResourceDictionary Source="Style/ListMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
+        
     </Application.Resources>
+    
+    
 </Application>
