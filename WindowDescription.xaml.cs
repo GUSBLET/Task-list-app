@@ -11,25 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
 
 namespace Task_list_app
 {
     /// <summary>
-    /// Interaction logic for ListWindow.xaml
+    /// Interaction logic for WindowDescription.xaml
     /// </summary>
-    public partial class ListWindow : Window
+    public partial class WindowDescription : Window
     {
-
-        public ListWindow(string PathToList)
+        public WindowDescription()
         {
             InitializeComponent();
-            
-        }
-
-        private void MenuItem_ShowDescription(object sender, MouseEventArgs e)
-        {
-
         }
     }
 }

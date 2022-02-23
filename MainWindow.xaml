@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_list_app"
         mc:Ignorable="d"
-        Title="" Height="650" Width="800" MinHeight="650" MinWidth="800">
+        Title="" Height="650" Width="1000" MinHeight="650" MinWidth="100">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -30,20 +30,27 @@
         <Canvas Grid.Column="1" Grid.Row="1" Style="{StaticResource WorkZoneBackground}"/>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
+
             <DockPanel Style="{StaticResource MarginDockPanel}">
-                <Label  Style="{StaticResource LableText}" Content="Path to list:         "/>
-                <TextBox Style="{StaticResource TextBox}" Margin="0,20,10,0"/>
+                <Label Content="Enter name list:   "/>
+                <TextBox KeyDown="AddText" Name="TextBox_NameList" Margin="0,20,10,0"/>
             </DockPanel>
+
             <DockPanel Style="{StaticResource MarginDockPanel}">
-                <Label Content="Task description: " Style="{StaticResource LableText}"/>
-                <TextBox Style="{StaticResource TextBox}" Margin="0,20,10,0"/>
+                <Label  Content="Path to list:         "/>
+                <TextBox Text="E:/Visual Studio/Test for listApp/" Name="TextBox_PathToList" Margin="0,20,10,0"/>
+            </DockPanel>
+
+            <DockPanel Style="{StaticResource MarginDockPanel}">
+                <Label Content="Task description: "/>
+                <TextBox Name="TextBox_Description" Margin="0,20,10,0"/>
             </DockPanel>
 
         </StackPanel>
         <Button Grid.Column="1" 
                 Grid.Row="1" 
                 Content="Create" 
-                VerticalAlignment="Bottom"/>
+                VerticalAlignment="Bottom" Click="Button_CreateList"/>
 
 
 

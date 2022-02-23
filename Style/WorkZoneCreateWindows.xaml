@@ -11,8 +11,8 @@
     </Style>
 
 
-    
-    <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
+    <!--Templates for textBox-->
+    <Style TargetType="TextBox">
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="Height" Value="28"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
@@ -22,17 +22,22 @@
     </Style>
 
 
-    <Style x:Key="LableText" TargetType="{x:Type Label}">
+    <!--Templates for main label-->
+    <Style TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="Margin" Value="10,10,0,0"/>
         <Setter Property="Foreground" Value="#f2f2f2"/><!--Color "#f2f2f2"-->
     </Style>
 
 
+    <Style x:Key="LabelErr" TargetType="Label">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
 
 
-
-
+    <!--Templates for button-->
     <Style TargetType="Button">
         <Setter Property="Height" Value="40"/>
         <Setter Property="Margin" Value="10,0,10,10"/>
@@ -55,6 +60,9 @@
         </Style.Triggers>
     </Style>
 
+    
+    
+    
 
 
 

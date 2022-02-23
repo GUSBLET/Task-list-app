@@ -26,7 +26,7 @@
                 <MenuItem Header="Save file as" Style="{StaticResource MenuItemParagraphOption}"/>
             </MenuItem>
             <MenuItem Header="Setting" Style="{StaticResource MenuItemHeaderOption}">
-                <MenuItem Header="Description" Style="{StaticResource MenuItemParagraphOption}"/>
+                <MenuItem Header="Description" MouseEnter="MenuItem_ShowDescription" Style="{StaticResource MenuItemParagraphOption}"/>
             </MenuItem>
         </Menu>
 

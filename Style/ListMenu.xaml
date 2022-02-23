@@ -22,7 +22,6 @@
         <Setter Property="BorderBrush" Value="#4d4d4d"/><!--Color "#4d4d4d" -->
     </Style>
 
-    <Style x:Key="q" TargetType="{x:Type DataGridColumnHeader}">
-        
-    </Style>
+
+    
 </ResourceDictionary>
