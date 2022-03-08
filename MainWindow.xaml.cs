@@ -103,7 +103,7 @@ namespace Task_list_app
                     MessageBox.Show("List successful create",
                         ":)",
                         MessageBoxButton.OK);
-                    new ListWindow(TextBox_PathToList.Text).Show();
+                    new ListWindow(TextBox_PathToList.Text, TextBox_NameList.Text).Show();
                     
                     Close();
                 }

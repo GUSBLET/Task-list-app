@@ -20,16 +20,18 @@ namespace Task_list_app
     /// </summary>
     public partial class ListWindow : Window
     {
-
-        public ListWindow(string PathToList)
+        private string PathToList;
+        private string ListName;
+        public ListWindow(string Path, string Name)
         {
             InitializeComponent();
-            
+            PathToList = Path;
+            ListName = Name;
         }
 
         private void MenuItem_ShowDescription(object sender, MouseEventArgs e)
         {
-
+            new WindowDescription(PathToList, ListName).Show();
         }
     }
 }

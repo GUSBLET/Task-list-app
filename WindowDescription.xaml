@@ -5,23 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_list_app"
         mc:Ignorable="d"
-        Title="Description" Height="300" Width="400" MinHeight="300" MinWidth="400">
+        Title="Description" Height="300" Width="700" MinHeight="300" MinWidth="700">
     <Grid>
         <Canvas Style="{StaticResource WorkZoneBackground}">
             <StackPanel>
                 <DockPanel Style="{StaticResource MarginDockPanel}">
                     <Label Content="Name list:"/>
-                    <Label Content="..."/>
+                    <Label x:Name="Label_NameList"
+                           Content="..."/>
                 </DockPanel>
 
                 <DockPanel Style="{StaticResource MarginDockPanel}">
                     <Label Content="Path to list:"/>
-                    <Label Content="..."/>
+                    <Label x:Name="Label_PathToList"
+                           Content="..."/>
                 </DockPanel>
 
                 <DockPanel Style="{StaticResource MarginDockPanel}">
                     <Label Content="Desctiption:"/>
-                    <Label Content="..."/>
+                    <Label x:Name="Label_Description"
+                           Content="..."/>
                 </DockPanel>
             </StackPanel>
         </Canvas>
