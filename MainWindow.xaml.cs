@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 using Task_list_app.Service;
-
+using System.ComponentModel;
 
 
 namespace Task_list_app
@@ -37,7 +37,7 @@ namespace Task_list_app
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             
-
+ 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -92,20 +92,49 @@ namespace Task_list_app
             }
 
 
-
             if (ContinueExecution)
             {
                 
                 try
                 {
-                    Directory.CreateDirectory(TextBox_PathToList.Text);
-                    _fileIOService.CreateData(_fileIOService);
-                    MessageBox.Show("List successful create",
-                        ":)",
-                        MessageBoxButton.OK);
-                    new ListWindow(TextBox_PathToList.Text, TextBox_NameList.Text).Show();
+                    List<string> list_chek = new List<string>();
+                    list_chek = _fileIOService.Read_ListDataBase();
+
+                    if (!list_chek.Contains(TextBox_PathToList.Text))
+                    {
+                        if (File.Exists("DataList.json"))
+                        {
+                            List<string> unit = _fileIOService.Read_ListDataBase();
+                            unit.Add(TextBox_PathToList.Text);
+                            _fileIOService.Write_listDataBase(unit);
+                        }
+                        else
+                        {
+                            List<string> unit = new List<string>();
+                            unit.Add(TextBox_PathToList.Text);
+                            _fileIOService.Write_listDataBase(unit);
+                        }
+
+                        Directory.CreateDirectory(TextBox_PathToList.Text);
+                        _fileIOService.CreateData(_fileIOService);
+                        MessageBox.Show("List successful create",
+                            ":)",
+                            MessageBoxButton.OK);
+                        new ListWindow(TextBox_PathToList.Text, TextBox_NameList.Text).Show();
+
+                        Close();
+                    }  
+                    else
+                    {
+                        MessageBox.Show(
+                            "A list with the same name already exists ",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+
+
                     
-                    Close();
                 }
                 catch (Exception error)
                 {

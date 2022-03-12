@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text.Json;
+using System.ComponentModel;
 
 namespace Task_list_app.Service
 {
@@ -62,19 +63,42 @@ namespace Task_list_app.Service
         // Convert to jsoon format
         public void CreateData(FileIOService fileIOService)
         {
-            using (StreamWriter writer = File.CreateText(_PATH + "/" + _ListName + "Main.json"))
+            using (StreamWriter writer = File.CreateText(fileIOService.Path + "/" + fileIOService.ListName + "Main.json"))
             {
-                
                 var output = JsonConvert.SerializeObject(fileIOService);
-                 writer.Write(output);
+                writer.Write(output);
             }
         }
         
         //check availability list
-        public void CreateListFile()
+        public void Write_listDataBase(List<string> list)
         {
-            
+            using (StreamWriter writer = File.CreateText("DataList.json"))
+            {
+                string output = JsonConvert.SerializeObject(list);
+                writer.Write(output);
+            }
         }
+
+        //read list database
+        public List<string> Read_ListDataBase()
+        {
+            using (StreamReader reader = File.OpenText("DataList.json"))
+            {
+                var fileText = reader.ReadToEnd();
+
+                return JsonConvert.DeserializeObject<List<string>>(fileText);
+            }           
+        }
+
+        //delete list in database
+        public List<string> Delet_ListDataBase(List<string> list, string unit)
+        {
+            list.Remove(unit);
+            return list;
+        }
+
+        
 
         // UnZip json in code
         public FileIOService UnPack(string PathToFile, string ListName)

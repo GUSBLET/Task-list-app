@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Task_list_app.Service;
+using System.IO;
+
 
 namespace Task_list_app
 {
@@ -32,6 +35,37 @@ namespace Task_list_app
         private void MenuItem_ShowDescription(object sender, MouseEventArgs e)
         {
             new WindowDescription(PathToList, ListName).Show();
+        }
+
+        private void Delete_list(object sender, MouseEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to delete the list?",
+                "Delet list",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Information);
+
+            if(result == MessageBoxResult.OK)
+            {
+                FileIOService fileIOService = new FileIOService();
+
+                //delete list in database
+                List<string> list = fileIOService.Read_ListDataBase();
+                fileIOService.Delet_ListDataBase(list, PathToList);
+                fileIOService.Write_listDataBase(list);
+                
+
+                Directory.Delete(PathToList, true);
+
+                MessageBox.Show(
+                    "Complite");
+            }
+        }
+
+        private void Close_list(object sender, MouseButtonEventArgs e)
+        {
+            new MainWindow().Show();
+            Close();
         }
     }
 }

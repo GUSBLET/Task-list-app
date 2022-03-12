@@ -24,9 +24,9 @@
                 <MenuItem Header="New List" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Save file" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Save file as" Style="{StaticResource MenuItemParagraphOption}"/>
-            </MenuItem>
-            <MenuItem Header="Setting" Style="{StaticResource MenuItemHeaderOption}">
+                <MenuItem Header="Delete list" PreviewMouseDown="Delete_list" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Description" PreviewMouseDown="MenuItem_ShowDescription" Style="{StaticResource MenuItemParagraphOption}"/>
+                <MenuItem Header="Close list" PreviewMouseDown="Close_list"  Style="{StaticResource MenuItemParagraphOption}"/>
             </MenuItem>
         </Menu>
 
