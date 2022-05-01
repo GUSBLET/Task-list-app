@@ -60,12 +60,36 @@
         </Style.Triggers>
     </Style>
 
-    
-    
-    
+
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="#4d4d4d"/><!--Color "#4d4d4d" -->
+        <Setter Property="Foreground" Value="#f2f2f2"/><!--Color "#f2f2f2"-->
+        
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="#595959"/><!--Color "#595959"-->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
 
+    <!--Style TargetType="ListView">
+        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+    </Style-->
 
 
 </ResourceDictionary>

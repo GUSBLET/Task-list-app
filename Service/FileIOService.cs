@@ -7,29 +7,46 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Task_list_app.Service
 {
-    class FileIOService
+    class FileIOService : INotifyPropertyChanged
     {
+        private string _ListName;
         private string _PATH;
         private string _Description;
-        private string _ListName;
 
+        
         public string Path
         {
             get { return _PATH; }
-            set { _PATH = value; }
+            set 
+            {
+                _PATH = value;
+                OnPropertyChanged("Path");
+            }
+        }
+        public string ListName
+        {
+            get { return _ListName; }
+            set 
+            {
+                _ListName = value;
+                OnPropertyChanged("ListName");
+            }
         }
         public string Description
         {
             get { return _Description; }
             set { _Description = value; }
         }
-        public string ListName
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            get { return _ListName; }
-            set { _ListName = value; }
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
         //Сheck for emptiness 
@@ -63,15 +80,16 @@ namespace Task_list_app.Service
         // Convert to jsoon format
         public void CreateData(FileIOService fileIOService)
         {
-            using (StreamWriter writer = File.CreateText(fileIOService.Path + "/" + fileIOService.ListName + "Main.json"))
+            
+            using (StreamWriter writer = File.CreateText(fileIOService.Path + fileIOService.ListName + "Main.json"))
             {
                 var output = JsonConvert.SerializeObject(fileIOService);
                 writer.Write(output);
             }
         }
         
-        //check availability list
-        public void Write_listDataBase(List<string> list)
+        //check availability path list
+        public void Write_listDataBase(List<FileIOService> list)
         {
             using (StreamWriter writer = File.CreateText("DataList.json"))
             {
@@ -80,25 +98,29 @@ namespace Task_list_app.Service
             }
         }
 
-        //read list database
-        public List<string> Read_ListDataBase()
+        //read list path database
+        public List<FileIOService> Read_ListDataBase()
         {
             using (StreamReader reader = File.OpenText("DataList.json"))
             {
                 var fileText = reader.ReadToEnd();
-
-                return JsonConvert.DeserializeObject<List<string>>(fileText);
+                return JsonConvert.DeserializeObject<List<FileIOService>>(fileText);
             }           
         }
 
-        //delete list in database
-        public List<string> Delet_ListDataBase(List<string> list, string unit)
+        public int Find_listDataBase(List<FileIOService> list, FileIOService fileIOService, ref bool result)
         {
-            list.Remove(unit);
-            return list;
+            int id = 0;
+            for(int i = 0; i < list.Count;i++)
+            {
+                if (list[i].ListName == fileIOService.ListName)
+                {
+                    result = true;
+                    id = i;
+                }
+            }
+            return id;
         }
-
-        
 
         // UnZip json in code
         public FileIOService UnPack(string PathToFile, string ListName)
@@ -106,7 +128,6 @@ namespace Task_list_app.Service
             using(var reader = File.OpenText(PathToFile + "/" + ListName + "Main.json"))
             {
                 var fileText = reader.ReadToEnd();
-                                
                 return JsonConvert.DeserializeObject<FileIOService>(fileText);
             }
             

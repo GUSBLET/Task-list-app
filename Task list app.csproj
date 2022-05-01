@@ -75,9 +75,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Service\ApplicationViewModel.cs" />
+    <Compile Include="Service\Button_HistoryList.cs" />
     <Compile Include="Service\FileIOService.cs" />
     <Compile Include="WindowDescription.xaml.cs">
       <DependentUpon>WindowDescription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window_OpenList.xaml.cs">
+      <DependentUpon>Window_OpenList.xaml</DependentUpon>
     </Compile>
     <Page Include="ListWindow.xaml">
       <SubType>Designer</SubType>
@@ -111,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowDescription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window_OpenList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

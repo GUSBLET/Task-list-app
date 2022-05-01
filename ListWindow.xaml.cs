@@ -23,18 +23,17 @@ namespace Task_list_app
     /// </summary>
     public partial class ListWindow : Window
     {
-        private string PathToList;
-        private string ListName;
-        public ListWindow(string Path, string Name)
+        private FileIOService _obj;
+        
+         public ListWindow(string Path, string ListName, string Description)
         {
             InitializeComponent();
-            PathToList = Path;
-            ListName = Name;
+            _obj = new FileIOService(Path, ListName, Description);
         }
 
         private void MenuItem_ShowDescription(object sender, MouseEventArgs e)
         {
-            new WindowDescription(PathToList, ListName).Show();
+            new WindowDescription(_obj.Path, _obj.ListName, _obj.Description).Show();
         }
 
         private void Delete_list(object sender, MouseEventArgs e)
@@ -47,18 +46,30 @@ namespace Task_list_app
 
             if(result == MessageBoxResult.OK)
             {
-                FileIOService fileIOService = new FileIOService();
-
                 //delete list in database
-                List<string> list = fileIOService.Read_ListDataBase();
-                fileIOService.Delet_ListDataBase(list, PathToList);
-                fileIOService.Write_listDataBase(list);
+                List<FileIOService> list = _obj.Read_ListDataBase();
+
+                bool res = false;
+                int a = _obj.Find_listDataBase(list, _obj, ref res);
+                list.RemoveAt(a);
                 
 
-                Directory.Delete(PathToList, true);
+                
 
-                MessageBox.Show(
-                    "Complite");
+                if(res)
+                {
+                    _obj.Write_listDataBase(list);
+                    Directory.Delete(_obj.Path, true);
+
+                    MessageBox.Show(
+                        "Complite");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show(
+                            "Error");
+                }
             }
         }
 

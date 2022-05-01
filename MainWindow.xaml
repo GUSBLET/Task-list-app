@@ -9,7 +9,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.3*"/>
+            <ColumnDefinition Width="1.7*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
 
             <DockPanel Style="{StaticResource MarginDockPanel}">
                 <Label Content="Enter name list:   "/>
-                <TextBox KeyDown="AddText" Name="TextBox_NameList" Margin="0,20,10,0"/>
+                <TextBox Name="TextBox_NameList" Margin="0,20,10,0"/>
             </DockPanel>
 
             <DockPanel Style="{StaticResource MarginDockPanel}">
@@ -50,33 +50,43 @@
         <Button Grid.Column="1" 
                 Grid.Row="1" 
                 Content="Create" 
-                VerticalAlignment="Bottom" Click="Button_CreateList"/>
+                VerticalAlignment="Bottom" 
+                Click="Button_CreateList"/>
 
 
 
         <!--History list group-->
         <Canvas Grid.Column="0" Grid.Row="1" Style="{StaticResource WorkZoneBackground}"/>
+
+
+
+
+
+        <!--TextBlock Style="{StaticResource HeadersText}"/-->
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Lists}"
+                 SelectedItem="{Binding SelectedLists}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=ListName}" />
+                        <TextBlock Text="{Binding Path=Path}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--Button Name="btnOpenFile"
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Content="Open list"
+                VerticalAlignment="Bottom"
+                Click="btnOpenFile_Click"/-->
+
+
+
+
+
+
         
-        <StackPanel Grid.Column="0" Grid.Row="1">
-            <DockPanel Margin="0,10,0,10">
-                <Button Name="btnOpenFile"
-                        Content="Open list"
-                        Click="btnOpenFile_Click"/>
-            </DockPanel>
-            <Button Content="Open win"
-                    Click="Button_Click"/>
-        </StackPanel>
-        
-
-
-
-
-
-
-
-
-
-        <!--Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1"/-->
 
 
 

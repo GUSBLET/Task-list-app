@@ -16,24 +16,17 @@ using Task_list_app.Service;
 namespace Task_list_app
 {
     /// <summary>
-    /// Interaction logic for WindowDescription.xaml
+    /// Interaction logic for Window_OpenList.xaml
     /// </summary>
-    public partial class WindowDescription : Window
+    public partial class Window_OpenList : Window
     {
-        private FileIOService _obj;
-        public WindowDescription(string Path, string ListName, string Description)
+        public Window_OpenList()
         {
             InitializeComponent();
+            FileIOService fileIOService = new FileIOService();
+            List<FileIOService> list = fileIOService.Read_ListDataBase();
 
-            _obj = new FileIOService(Path, ListName, Description);
-
-
-            Label_NameList.Content = _obj.ListName.ToString();
-            Label_PathToList.Content = _obj.Path.ToString();
-            Label_Description.Content = _obj.Description.ToString();
-
+            
         }
-        
-        
     }
 }
