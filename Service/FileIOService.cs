@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Text.Json;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Task_list_app.Model;
 
 namespace Task_list_app.Service
 {
@@ -17,13 +18,13 @@ namespace Task_list_app.Service
         private string _PATH;
         private string _Description;
 
-        
+
         public string Path
         {
             get { return _PATH; }
-            set 
+            set
             {
-                _PATH = value;
+                _PATH = value + _ListName;
                 OnPropertyChanged("Path");
             }
         }
@@ -70,18 +71,11 @@ namespace Task_list_app.Service
 
         }
 
-        //Print data to label
-        public void PrintData(FileIOService fileIOService)
-        {
-
-        }
-
-
+        
         // Convert to jsoon format
         public void CreateData(FileIOService fileIOService)
         {
-            
-            using (StreamWriter writer = File.CreateText(fileIOService.Path + fileIOService.ListName + "Main.json"))
+            using (StreamWriter writer = File.CreateText(fileIOService.Path + fileIOService.ListName + '/' + fileIOService.ListName + "Main.json"))
             {
                 var output = JsonConvert.SerializeObject(fileIOService);
                 writer.Write(output);
@@ -104,10 +98,13 @@ namespace Task_list_app.Service
             using (StreamReader reader = File.OpenText("DataList.json"))
             {
                 var fileText = reader.ReadToEnd();
+                
                 return JsonConvert.DeserializeObject<List<FileIOService>>(fileText);
             }           
         }
+        
 
+        //I find element in DB
         public int Find_listDataBase(List<FileIOService> list, FileIOService fileIOService, ref bool result)
         {
             int id = 0;
@@ -122,16 +119,47 @@ namespace Task_list_app.Service
             return id;
         }
 
-        // UnZip json in code
-        public FileIOService UnPack(string PathToFile, string ListName)
+
+        // Read list
+        public BindingList<TodoModel> ReadList(FileIOService fileIOService)
         {
-            using(var reader = File.OpenText(PathToFile + "/" + ListName + "Main.json"))
+            using (StreamReader reader = File.OpenText(fileIOService.Path + fileIOService.ListName + '/' + fileIOService.ListName + "List.json"))
             {
                 var fileText = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<FileIOService>(fileText);
+
+                return JsonConvert.DeserializeObject<BindingList<TodoModel>>(fileText);
             }
-            
-            
         }
+
+
+        public bool WriteList(BindingList<TodoModel> list, FileIOService fileIOService)
+        {
+            bool result = false;
+            using (StreamWriter writer = File.CreateText(fileIOService.Path + fileIOService.ListName + '/' + fileIOService.ListName + "List.json"))
+            {
+                string output = JsonConvert.SerializeObject(list);
+                writer.Write(output);
+                result = true; 
+            }
+            return result;
+        }
+
+        public bool ChekListFile(FileIOService fileIOService)
+        {
+            return File.Exists(fileIOService.Path);
+        }
+
+
+        //// UnZip json in code
+        //public FileIOService UnPack(string PathToFile, string ListName)
+        //{
+        //    using(var reader = File.OpenText(PathToFile + "/" + ListName + "Main.json"))
+        //    {
+        //        var fileText = reader.ReadToEnd();
+        //        return JsonConvert.DeserializeObject<FileIOService>(fileText);
+        //    }
+            
+            
+        //}
     }
 }

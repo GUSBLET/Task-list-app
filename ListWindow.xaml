@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_list_app"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="323*"/>
+        </Grid.ColumnDefinitions>
 
         <!--List zone-->
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,26 +22,23 @@
 
 
         <!--Menu-->
-        
-        <Menu Style="{StaticResource MenuOption}" Grid.Row="0">
+
+        <Menu Style="{StaticResource MenuOption}" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <MenuItem Header="File" Style="{StaticResource MenuItemHeaderOption}">
-                <MenuItem Header="New List" Style="{StaticResource MenuItemParagraphOption}"/>
-                <MenuItem Header="Save file" Style="{StaticResource MenuItemParagraphOption}"/>
-                <MenuItem Header="Save file as" Style="{StaticResource MenuItemParagraphOption}"/>
+                <MenuItem Header="Save file" PreviewMouseDown="Save_List" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Delete list" PreviewMouseDown="Delete_list" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Description" PreviewMouseDown="MenuItem_ShowDescription" Style="{StaticResource MenuItemParagraphOption}"/>
                 <MenuItem Header="Close list" PreviewMouseDown="Close_list"  Style="{StaticResource MenuItemParagraphOption}"/>
             </MenuItem>
         </Menu>
 
-        <DataGrid x:Name="dgTodoList" Grid.Row="1">
+        <DataGrid x:Name="dgTodoList" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="CreationDate" Width="180" />
-                <DataGridCheckBoxColumn Header="Done" Width="60"/>
-                <DataGridTextColumn Header="Сompletion date" Width="180"/>
-                <DataGridTextColumn Header="Todo" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path = CreationTime}" IsReadOnly="True" Header="CreationDate" Width="180" />
+                <DataGridCheckBoxColumn Binding="{Binding Path = IsDone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Header="Done" Width="60"/>
+                <DataGridTextColumn Binding="{Binding Path = Text}" IsReadOnly="False" Header="Todo" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        
+
     </Grid>
 </Window>

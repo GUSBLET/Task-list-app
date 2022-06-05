@@ -29,10 +29,11 @@ namespace Task_list_app
         //private FileIOService _fileIOService;
         //private ListWindow _listWindow;
         private ObservableCollection<Button_HistoryList> Buttons { get; set; } = new ObservableCollection<Button_HistoryList>();
+        private bool CancelTheMatchСheck = false;
         public MainWindow()
         {
             InitializeComponent();
-            if (!File.Exists("DataList.json")) File.Create("DataList.json").Close();
+            if (!File.Exists("DataList.json")) File.Create("DataList.json").Close(); CancelTheMatchСheck = true;
                             
             DataContext = new ApplicationViewModel();
             FileIOService fileIOService = new FileIOService();
@@ -43,11 +44,27 @@ namespace Task_list_app
         }
 
         
-
+        // Open list from main json list
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
+            FileIOService unit = new FileIOService();
+            List<FileIOService> list = unit.Read_ListDataBase();
+            Button button = (Button)sender;
+            DockPanel grid = (DockPanel)button.Parent;
+            //Отсюда можно вытащить объект, закрепленный за элементом списка
+            Object obj = (FileIOService)grid.DataContext;
+            unit = (FileIOService)obj;
             
+            //А отсюда сам индекс
+            int index = -1;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (unit.Path == list[i].Path) index = i;
+            }
 
+            new ListWindow(list[index].Path, list[index].ListName, list[index].Description).Show();
+
+            Close();
         }
 
 
@@ -99,65 +116,52 @@ namespace Task_list_app
                 
                 try
                 {
-                    bool res = false;
+                    
+                    FileIOService buffer = new FileIOService(TextBox_PathToList.Text, TextBox_NameList.Text, TextBox_Description.Text);
+
+                    // chek exists main list file
                     if (File.Exists("DataList.json"))
                     {
-                        FileIOService buffer = new FileIOService();
-                        buffer.ListName = TextBox_NameList.Text;
-                        buffer.Description = TextBox_Description.Text;
-                        buffer.Path = TextBox_PathToList.Text;
-
+                        
+                        
                         List<FileIOService> unit = _obj.Read_ListDataBase();
+
+                        bool res = false;
                         if(unit == null) unit = new List<FileIOService>();
-                        if(!unit.Contains(buffer))
+                        else
+                        {
+                            foreach (var item in unit)
+                            {
+                                if (item != buffer) res = true;
+                            }
+                        }
+                        
+                        if(res || CancelTheMatchСheck)
                         {
 
                             unit.Add(buffer);
                             _obj.Write_listDataBase(unit);
+
+                            Directory.CreateDirectory(TextBox_PathToList.Text + TextBox_NameList.Text);
+                            _obj.CreateData(_obj);
+                            MessageBox.Show("List successful create",
+                               ":)",
+                               MessageBoxButton.OK);
+                            new ListWindow(_obj.Path, _obj.ListName, _obj.Description).Show();
+
+                            Close();
                         }
                         
                         else
-                        { 
-                            res = true;
-                        }
-
-                    }
-                    else
-                    {
-                        List<FileIOService> unit = new List<FileIOService>();
-
-                        FileIOService buffer = new FileIOService();
-                        buffer.ListName = TextBox_NameList.Text;
-                        buffer.Description = TextBox_Description.Text;
-                        buffer.Path = TextBox_PathToList.Text;
-
-                        unit.Add(buffer);
-                        _obj.Write_listDataBase(unit);
-                    }
-
-                    if (!res)
-                    {
-                        
-                        Directory.CreateDirectory(TextBox_PathToList.Text + TextBox_NameList.Text);
-                        _obj.CreateData(_obj);
-                        MessageBox.Show("List successful create",
-                           ":)",
-                           MessageBoxButton.OK);
-                        new ListWindow(_obj.Path, _obj.ListName, _obj.Description).Show();
-
-                        Close();
-                    }
-
-                    if(res)
-                    {
-                        MessageBox.Show(
+                        {
+                            MessageBox.Show(
                             "A list with the same name already exists ",
                             "Error",
                             MessageBoxButton.OK,
                             MessageBoxImage.Error);
-                    
-                    }
+                        }
 
+                    }
                     
                 }
                 catch (Exception error)
@@ -172,7 +176,7 @@ namespace Task_list_app
 
         }
 
-        
+
     }
 }
  

@@ -14,7 +14,8 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Task_list_app.Service;
 using System.IO;
-
+using Task_list_app.Model;
+using System.ComponentModel;
 
 namespace Task_list_app
 {
@@ -23,13 +24,19 @@ namespace Task_list_app
     /// </summary>
     public partial class ListWindow : Window
     {
-        private FileIOService _obj;
+         private FileIOService _obj;
+         private BindingList<TodoModel> _todoDataList = new BindingList<TodoModel>();
         
          public ListWindow(string Path, string ListName, string Description)
-        {
+         {
             InitializeComponent();
             _obj = new FileIOService(Path, ListName, Description);
-        }
+
+            if (File.Exists(Path + ListName + '/' + ListName + "List.json"))
+                _todoDataList = _obj.ReadList(_obj);
+            else
+                _obj.WriteList(_todoDataList, _obj);
+         }
 
         private void MenuItem_ShowDescription(object sender, MouseEventArgs e)
         {
@@ -59,10 +66,11 @@ namespace Task_list_app
                 if(res)
                 {
                     _obj.Write_listDataBase(list);
-                    Directory.Delete(_obj.Path, true);
+                    Directory.Delete(_obj.Path+_obj.ListName, true);
 
                     MessageBox.Show(
                         "Complite");
+                    new MainWindow().Show();
                     Close();
                 }
                 else
@@ -75,8 +83,61 @@ namespace Task_list_app
 
         private void Close_list(object sender, MouseButtonEventArgs e)
         {
-            new MainWindow().Show();
-            Close();
+            var answer = MessageBox.Show("Do you want save list?", "", MessageBoxButton.YesNo);
+            if(answer == MessageBoxResult.Yes)
+            {
+                _obj.WriteList(_todoDataList, _obj);
+                new MainWindow().Show();
+                Close();
+            }
+            else
+            {
+                new MainWindow().Show();
+                Close();
+            }
+            
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+
+            dgTodoList.ItemsSource = _todoDataList;
+            _todoDataList.ListChanged += _todoDataList_ListChanged;
+        }
+
+        private void _todoDataList_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.Reset:
+                    break;
+                case ListChangedType.ItemAdded:
+                    break;
+                case ListChangedType.ItemDeleted:
+                    break;
+                case ListChangedType.ItemMoved:
+                    break;
+                case ListChangedType.ItemChanged:
+                    break;
+                case ListChangedType.PropertyDescriptorAdded:
+                    break;
+                case ListChangedType.PropertyDescriptorDeleted:
+                    break;
+                case ListChangedType.PropertyDescriptorChanged:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Save_List(object sender, MouseButtonEventArgs e)
+        {
+            if (_obj.WriteList(_todoDataList, _obj))
+                MessageBox.Show("File successfully save");
+            
         }
     }
 }

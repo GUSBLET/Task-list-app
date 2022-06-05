@@ -25,9 +25,7 @@ namespace Task_list_app
 
         public ApplicationViewModel()
         {
-            
-            Lists = fileIOService.Read_ListDataBase();
-            
+            Lists = fileIOService.Read_ListDataBase();   
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

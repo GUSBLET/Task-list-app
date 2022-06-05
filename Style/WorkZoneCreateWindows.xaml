@@ -79,7 +79,7 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
+            <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#595959"/><!--Color "#595959"-->
             </Trigger>
         </Style.Triggers>
